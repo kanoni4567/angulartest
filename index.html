@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="shanyuApp">
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, user-scalable=no"
+    />
+
+    <link rel="stylesheet" type="text/css" href="App/style/main.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="shanyuController" class="center">
+      <div class="grid-container">
+        <div ng-repeat="row in tiles track by $index" class="grid-row">
+          <div
+            class="grid-cell"
+            ng-repeat="column in row track by $index"
+            ng-click="selectTile($parent.$index, $index)"
+            ng-class="{'selected':selectedTile.x === $index && selectedTile.y === $parent.$index}"
+          >
+            {{$parent.$index}}{{$index}}
+          </div>
+        </div>
+      </div>
+      <div class="unit-container">
+        <div ng-repeat="unit in units track by $index">
+          <div
+            ng-if="unit.alive === true"
+            class="unit unit-position-{{unit.position.x}}-{{unit.position.y}}"
+          >
+            <div class="unit-inner">{{unit.icon}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App -->
+    <script src="App/shanyuApp.js"></script>
+  </body>
+</html>
