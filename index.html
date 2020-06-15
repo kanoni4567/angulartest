@@ -14,14 +14,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   </head>
   <body>
-    <div ng-controller="shanyuController" class="center">
+    <div ng-controller="shanyuController" class="center" oncontextmenu="return false" ng-mousedown="handleClick($event)">
       <div class="grid-container">
         <div ng-repeat="row in tiles track by $index" class="grid-row">
           <div
             class="grid-cell"
             ng-repeat="column in row track by $index"
             ng-click="selectTile($parent.$index, $index)"
-            ng-class="{'selected':selectedTile.x === $index && selectedTile.y === $parent.$index}"
+            ng-class="{'selected':selectedTile.x === $index && selectedTile.y === $parent.$index, 'moveRange': isInMoveRange($index, $parent.$index), 'attackRange': isInAttackRange($index, $parent.$index)}"
           >
             {{$parent.$index}}{{$index}}
           </div>
@@ -33,7 +33,9 @@
             ng-if="unit.alive === true"
             class="unit unit-position-{{unit.position.x}}-{{unit.position.y}}"
           >
-            <div class="unit-inner">{{unit.icon}}</div>
+            <div class="unit-inner">
+              <img src="{{'App/asset/' + unit.type + '.png'}}" width="80" height="80">
+            </div>
           </div>
         </div>
       </div>
